@@ -1,0 +1,20 @@
+{"1.1.0",
+[{<<"amqp_client">>,
+  {git,"git://github.com/jbrisbin/amqp_client.git",
+       {ref,"d50aec00b94f0766a048b4eceaf25ddfdeeb1d86"}},
+  0},
+ {<<"eredis">>,{pkg,<<"eredis">>,<<"1.2.0">>},0},
+ {<<"jiffy">>,
+  {git,"https://github.com/davisp/jiffy.git",
+       {ref,"2f73ba9afd05a0169b84a77d23ecf4524914f609"}},
+  0},
+ {<<"poolboy">>,{pkg,<<"poolboy">>,<<"1.5.2">>},0},
+ {<<"rabbit_common">>,
+  {git,"https://github.com/jbrisbin/rabbit_common.git",
+       {ref,"80814606ae23cc820c74e443383e192cd69ec030"}},
+  1}]}.
+[
+{pkg_hash,[
+ {<<"eredis">>, <<"0B8E9CFC2C00FA1374CD107EA63B49BE08D933DF2CF175E6A89B73DD9C380DE4">>},
+ {<<"poolboy">>, <<"392B007A1693A64540CEAD79830443ABF5762F5D30CF50BC95CB2C1AAAFA006B">>}]}
+].

@@ -1,0 +1,17 @@
+{application, simple_red,
+ [{description, "An OTP application"},
+  {vsn, "0.1.0"},
+  {registered, []},
+  {mod, { simple_red_app, []}},
+  {applications,
+   [kernel,
+    stdlib
+    %amqp_client
+   ]},
+  {env,[]},
+  {modules, [http_req, redis_mod]},
+
+  {maintainers, []},
+  {licenses, ["Apache 2.0"]},
+  {links, []}
+ ]}.
