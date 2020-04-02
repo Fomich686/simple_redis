@@ -15,8 +15,4 @@ Lanch
     $ rebar3 shell
     $ request:gen(3).
 
-The function request:gen(3) gets json from:
-    "https://jsonplaceholder.typicode.com/todos/1"
-    "https://jsonplaceholder.typicode.com/todos/2"
-    "https://jsonplaceholder.typicode.com/todos/3"
-and saves it in Redis.
+The function request:gen(3) gets json and saves it in Redis.
