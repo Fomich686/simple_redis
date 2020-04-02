@@ -7,7 +7,7 @@
         ]).
 
 gen(N)->
-  Http = "https://jsonplaceholder.typicode.com/todos/", %++integer_to_list(Id)
+  Http = "https://jsonplaceholder.typicode.com/todos/", 
   [get_cast(Http ++ integer_to_list(Id)) || Id <- lists:seq(1,N)].
 
 get_cast(Request) ->
@@ -19,5 +19,5 @@ get_cast(Request) ->
 get_call(Request) ->
   Pid = poolboy:checkout(pool2),
   Res = gen_server:call(Pid, {request, Request}),
-  io:format("get_call: ~p ~p ~n",[Pid,Res]),
+  gen_event:notify(my_event, {get_call, Res}),
   poolboy:checkin(pool2,Pid).

@@ -32,17 +32,13 @@ start_link(_Args) ->
 init([]) ->
     {ok, #{}}.
 
-handle_call(Request, _From, State) ->
-    io:format("Request: ~p~n",[Request]),
+handle_call(_Request, _From, State) ->
     {reply, ignored, State}.
 
 handle_cast({request, Http}, State) ->
-    % http:request(head, {"https://example.com", []}, [{ssl,[{verify,0}]}], []).
-    %gen_event:notify(my_event, Http),
     {ok, RequestId} = httpc:request(get, {Http, []}, [], [{sync, false}]),
     {noreply, State#{RequestId => true}};
-handle_cast(Msg, State) ->
-    io:format("Msg: ~p~n",[Msg]),  
+handle_cast(_Msg, State) ->
     {noreply, State}.
 
 handle_info({http,{Ref, Response}}, State) ->
@@ -56,7 +52,6 @@ handle_info({http,{Ref, Response}}, State) ->
                                 Bin_id = integer_to_binary(Id),
                                 Hash = <<"id", ":", Bin_id/binary>>,
                                 List = maps:fold(fun(K,V,Ac)-> [K,V|Ac] end,[],maps:without([<<"id">>],Map)),
-                                %redis_mod:insert_hash(Hash, List),
                                 gen_server:call(redis_mod,{insert_hash, Hash,  List}),
                                 poolboy:checkin(pool2,self())
               end,
@@ -64,8 +59,7 @@ handle_info({http,{Ref, Response}}, State) ->
       false -> {noreply, State}
     end;
     
-handle_info(Info, State)->
-    io:format("Info no match: ~p~n",[Info]),  
+handle_info(_Info, State)->
     {noreply,State}.
 terminate(_Reason, _State) ->
     ok.
@@ -73,4 +67,3 @@ terminate(_Reason, _State) ->
 code_change(_OldVsn, State, _Extra) ->
     {ok, State}.
 
-% jiffy:decode(Msg, [return_maps]),
